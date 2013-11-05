@@ -1,6 +1,10 @@
 module Emoji
 	class EmojiGenerator < Jekyll::Generator
 		def generate(site)
+			if site.config.has_key?("emoji") and !site.config["emoji"]
+				return
+			end
+
 			site.pages.each { |p| substitute p }
 
 			site.posts.each { |p| substitute p }
@@ -8,12 +12,9 @@ module Emoji
 
 		private
 		def substitute(obj)
-			puts obj.data
 			if obj.data.has_key?("emoji") and !obj.data["emoji"]
-				puts "skip"
 				return
 			end
-			puts "continue"
 
 			obj.content.gsub!(/:(\w+):/) do |s|
 				img_tag $1
