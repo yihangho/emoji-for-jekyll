@@ -16,8 +16,18 @@ module Emoji
 				return
 			end
 
+			whitelist = obj.data.has_key?("emoji-whitelist") ? obj.data["emoji-whitelist"] : false
+			blacklist = obj.data.has_key?("emoji-blacklist") ? obj.data["emoji-blacklist"] : false
+
+			# When both the whitelist and blacklist are defined, whitelist will be prioritized
+			blacklist = whitelist ? false : blacklist
+
 			obj.content.gsub!(/:(\w+):/) do |s|
-				img_tag $1
+				if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1))
+					img_tag $1
+				else
+					s
+				end
 			end
 		end
 
