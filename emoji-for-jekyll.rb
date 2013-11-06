@@ -23,7 +23,7 @@ module Emoji
 			blacklist = whitelist ? false : blacklist
 
 			obj.content.gsub!(/:(\w+):/) do |s|
-				if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1))
+				if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1)) or (!whitelist and !blacklist)
 					img_tag $1
 				else
 					s
