@@ -40,3 +40,7 @@ emoji-for-jekyll.rb
 update-json.rb
 $ ruby update-json.rb -w
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yihangho/emoji-for-jekyll/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
