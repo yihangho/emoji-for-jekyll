@@ -7,11 +7,17 @@ module Emoji
 				return
 			end
 
+			if site.config.has_key?("emoji-additional-keys")
+				additional_keys = site.config["emoji-additional-keys"]
+			else
+				additional_keys = []
+			end
+
 			get_master_whitelist
 
-			site.pages.each { |p| substitute p }
+			site.pages.each { |p| substitute(p, additional_keys) }
 
-			site.posts.each { |p| substitute p }
+			site.posts.each { |p| substitute(p, additional_keys) }
 		end
 
 		private
@@ -20,7 +26,7 @@ module Emoji
 			@master_whitelist = JSON.parse(IO.readlines(File.expand_path("emojis.json", File.dirname(__FILE__))).join)
 		end
 
-		def substitute(obj)
+		def substitute(obj, additional_keys)
 			if obj.data.has_key?("emoji") and !obj.data["emoji"]
 				return
 			end
@@ -36,6 +42,18 @@ module Emoji
 					img_tag $1
 				else
 					s
+				end
+			end
+
+			additional_keys.each do |key|
+				if obj.data.has_key?(key)
+					obj.data[key].gsub!(/:([\w\+\-]+):/) do |s|
+						if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1)) or (!whitelist and !blacklist) and @master_whitelist.bsearch { |i| i >= $1 } == $1
+							img_tag $1
+						else
+							s
+						end
+					end
 				end
 			end
 		end
