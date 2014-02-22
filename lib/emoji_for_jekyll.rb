@@ -1,6 +1,6 @@
 require 'json'
 
-module Emoji
+module EmojiForJekyll
 	class EmojiGenerator < Jekyll::Generator
 		def generate(site)
 			if site.config.has_key?("emoji") and !site.config["emoji"]
