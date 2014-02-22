@@ -2,8 +2,14 @@
 Seamlessly enable emoji for Jekyll.
 
 ## Installation
-1. Get a copy of this repository.
-2. Copy `emoji-for-jekyll.rb` and `emojis.json` to `_plugins/` in your Jekyll directory.
+1. Install the `emoji_for_jekyll` gem:
+
+        gem install emoji_for_jekyll
+2. Add `emoji_for_jekyll` to the list of gems in `config.yml`:
+
+  ```yaml
+  gems: ["emoji_for_jekyll"]
+  ```
 3. See beautiful emoji!
 
 ## Options
