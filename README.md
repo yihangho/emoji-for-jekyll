@@ -43,17 +43,11 @@ If you need to emojify certain items in your front-matter, like `title` or `capt
 emoji-additional-keys: ["title", "caption"]
 ```
 
-### Updating `emojis.json`
-`emojis.json` contains the list of supported emojis. Since the images of all emojis are served by GitHub, all the emojis that are not supported by GitHub will not be converted to image tag. However, from time to time, GitHub might support new emojis, and to enable those emojis in this plugin, `emojis.json` should be updated. This can be done by moving `update-json.rb` to the same directory as `emojis.json` and execute `update-json.rb -w`. Please take note of the `-w` flag.
+## Updating Emoji for Jekyll
+Updating Emoji for Jekyll is very easy:
 
 ```
-$ ls
-emojis.json
-emoji-for-jekyll.rb
-update-json.rb
-$ ruby update-json.rb -w
+gem update emoji_for_jekyll
 ```
-
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yihangho/emoji-for-jekyll/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
