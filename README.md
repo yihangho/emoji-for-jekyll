@@ -49,5 +49,3 @@ Updating Emoji for Jekyll is very easy:
 ```
 gem update emoji_for_jekyll
 ```
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yihangho/emoji-for-jekyll/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
