@@ -37,26 +37,35 @@ module EmojiForJekyll
 			# When both the whitelist and blacklist are defined, whitelist will be prioritized
 			blacklist = whitelist ? false : blacklist
 
+      filter = Proc.new do |key|
+        (whitelist and whitelist.include?($1)) or
+        (blacklist and !blacklist.include?($1)) or
+        (!whitelist and !blacklist) and
+        @master_whitelist.bsearch { |i| i >= key } == key
+      end
+
 			obj.content.gsub!(/:([\w\+\-]+):/) do |s|
-				if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1)) or (!whitelist and !blacklist) and @master_whitelist.bsearch { |i| i >= $1 } == $1
-					img_tag $1
-				else
-					s
-				end
+				convert($1, filter)
 			end
 
 			additional_keys.each do |key|
 				if obj.data.has_key?(key)
 					obj.data[key].gsub!(/:([\w\+\-]+):/) do |s|
-						if (whitelist and whitelist.include?($1)) or (blacklist and !blacklist.include?($1)) or (!whitelist and !blacklist) and @master_whitelist.bsearch { |i| i >= $1 } == $1
-							img_tag $1
-						else
-							s
-						end
+						convert($1, filter)
 					end
 				end
 			end
 		end
+
+    # convert takes in the key to the emoji to be converted and an optional block
+    # If block is provided, conversion will be done only if this block evaluates to true.
+    def convert(key, block = nil)
+      if block.nil? or block.call(key)
+        img_tag(key)
+      else
+        ":#{key}:"
+      end
+    end
 
 		def img_tag(name)
 			"<img class=\"emoji\" title=\"#{name}\" alt=\"#{name}\" src=\"https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png\" height=\"20\" width=\"20\" align=\"absmiddle\">"
