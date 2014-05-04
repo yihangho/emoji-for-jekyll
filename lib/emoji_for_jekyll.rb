@@ -23,7 +23,7 @@ module EmojiForJekyll
 		private
 		def get_master_whitelist
 			# @master_whitelist is an array of all supported emojis
-			@master_whitelist = JSON.parse(IO.readlines(File.expand_path("emojis.json", File.dirname(__FILE__))).join)
+			@master_whitelist = JSON.parse(IO.readlines(File.expand_path("emoji.json", File.dirname(__FILE__))).join)
 		end
 
 		def substitute(obj, additional_keys)
