@@ -68,7 +68,7 @@ module EmojiForJekyll
     end
 
 		def img_tag(name)
-			"<img class=\"emoji\" title=\"#{name}\" alt=\"#{name}\" src=\"https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png\" height=\"20\" width=\"20\" align=\"absmiddle\">"
+			"<img class='emoji' title='#{name}' alt='#{name}' src='https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png'>"
 		end
 	end
 end
