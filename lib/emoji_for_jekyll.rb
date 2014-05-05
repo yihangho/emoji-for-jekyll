@@ -34,9 +34,7 @@ module EmojiForJekyll
 			if site.config["emoji-images-path"]
 
 			  images_path = site.config["emoji-images-path"]
-			  
-			  images_dir = File.join(site.source, images_path)
-			  Dir.foreach(images_dir) do |image_filename|
+			  Dir.foreach(images_path) do |image_filename|
 			    if /^(?<tag>.*)\.(?:png|jpg|jpeg|gif)/ =~ image_filename
 			      @master_whitelist << tag
 			      @images_path[tag] = File.join(images_path, image_filename)
@@ -91,7 +89,7 @@ module EmojiForJekyll
 		def img_tag(name)
 			# if there is an image in the custom images path
 			if @images_path[name]
-				img_src = @images_path[name]
+				img_src = '/'+@images_path[name]
 			else # otherwise use fallback CDN
 				img_src = "https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png"
 			end
