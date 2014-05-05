@@ -12,6 +12,11 @@ Seamlessly enable emoji for Jekyll.
   ```
 3. See beautiful emoji!
 
+_or_
+
+1. Copy `emoji_for_jekll.rb` and `emoji.json` into the `_plugins` directory
+
+
 ## Options
 ### Whitelist and blacklist
 You can also whitelist or blacklist certain emojis. On the posts or pages that you want to whitelist or blacklist certain emojis, add `emoji-whitelist` or `emoji-blacklist` follow by a list of emojis __without__ the colons to the front matter. For example:
@@ -43,8 +48,10 @@ If you need to emojify certain items in your front-matter, like `title` or `capt
 emoji-additional-keys: ["title", "caption"]
 ```
 
-## Custom images path
+## Custom images
 By default the images are sourced from 'https://github.global.ssl.fastly.net/images/icons/emoji/' but should you want to use other images you can by choosing a directory with the setting `emoji-images-path` in `_config.yml`. For example: `emoji-images-path: '/img/emoji/'`
+
+Images copied into this directory will be added the whitelist. E.g: `custom.png` would whitelist `:custom:`. Any images with the same name as the emoji list will overwrite the default GitHub emoji image.
 
 ## Updating Emoji for Jekyll
 Updating Emoji for Jekyll is very easy:
