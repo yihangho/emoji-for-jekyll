@@ -9,7 +9,7 @@ Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
 	request = Net::HTTP::Get.new uri
 	response = http.request request
 	json_obj = JSON.parse response.body
-	File.open("lib/emojis.json", "w") do |f|
+	File.open("lib/emoji.json", "w") do |f|
 		f.syswrite json_obj.keys
 	end
 end
