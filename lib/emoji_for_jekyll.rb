@@ -1,6 +1,7 @@
 require 'json'
 
 module EmojiForJekyll
+
 	class EmojiGenerator < Jekyll::Generator
 		def generate(site)
 			if site.config.has_key?("emoji") and !site.config["emoji"]
@@ -15,7 +16,7 @@ module EmojiForJekyll
 
 			get_master_whitelist
 
-			get_image_path(site)
+			get_images_path(site)
 
 			site.pages.each { |p| substitute(p, additional_keys) }
 
@@ -28,9 +29,22 @@ module EmojiForJekyll
 			@master_whitelist = JSON.parse(IO.readlines(File.expand_path("emoji.json", File.dirname(__FILE__))).join)
 		end
 
-		def get_image_path(site)
-			# @image_path specified from the _config.yml file
-			@image_path = site.config.has_key?("emoji-image-path") ? site.config["emoji-image-path"] : ""
+		def get_images_path(site)
+			@images_path = {}
+			if site.config["emoji-images-path"]
+
+			  images_path = site.config["emoji-images-path"]
+			  
+			  images_dir = File.join(site.source, images_path)
+			  Dir.foreach(images_dir) do |image_filename|
+			    if /^(?<tag>.*)\.(?:png|jpg|jpeg|gif)/ =~ image_filename
+			      @master_whitelist << tag
+			      @images_path[tag] = File.join(images_path, image_filename)
+			    end
+			  end
+
+			end
+			@master_whitelist.sort!
 		end
 
 		def substitute(obj, additional_keys)
@@ -75,11 +89,11 @@ module EmojiForJekyll
     end
 
 		def img_tag(name)
-			img_src = 'https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png'
+			img_src = "https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png"
 			
-			# if there is an image path
-			if @image_path.length > 0
-				img_src = '#{@image_path}#{name}.png'
+			# if there is an image in the custom images path
+			if @images_path[name]
+				img_src = @images_path[name]
 			end
 			
 			"<img class='emoji' title='#{name}' alt='#{name}' src='#{img_src}' height='20' width='20' align='absmiddle' >"
