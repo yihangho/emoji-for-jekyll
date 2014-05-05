@@ -89,11 +89,11 @@ module EmojiForJekyll
     end
 
 		def img_tag(name)
-			img_src = "https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png"
-			
 			# if there is an image in the custom images path
 			if @images_path[name]
 				img_src = @images_path[name]
+			else # otherwise use fallback CDN
+				img_src = "https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png"
 			end
 			
 			"<img class='emoji' title='#{name}' alt='#{name}' src='#{img_src}' height='20' width='20' align='absmiddle' >"
