@@ -43,8 +43,8 @@ If you need to emojify certain items in your front-matter, like `title` or `capt
 emoji-additional-keys: ["title", "caption"]
 ```
 
-## Custom image path
-By default the images are sourced from 'https://github.global.ssl.fastly.net/images/icons/emoji/' but should you want to use other images you can by choosing a directory with the setting `emoji-image-path` in `_config.yml`. For example: `emoji-path: '/img/emoji/'`
+## Custom images path
+By default the images are sourced from 'https://github.global.ssl.fastly.net/images/icons/emoji/' but should you want to use other images you can by choosing a directory with the setting `emoji-images-path` in `_config.yml`. For example: `emoji-images-path: '/img/emoji/'`
 
 ## Updating Emoji for Jekyll
 Updating Emoji for Jekyll is very easy:
