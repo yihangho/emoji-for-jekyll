@@ -1,0 +1,10 @@
+posts:
+  title: "First Test"
+  content: ":grin: :invalid:"
+  expectations:
+    should_appear:
+      - grin.png
+      - ":invalid:"
+    should_not_appear:
+      - ":grin:"
+      - "invalid.png"

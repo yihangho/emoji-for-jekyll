@@ -1,0 +1,3 @@
+permalink: /:title.html
+gems:
+  - emoji_for_jekyll

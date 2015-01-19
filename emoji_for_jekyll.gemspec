@@ -14,4 +14,6 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.md', 'LICENSE']
 
   s.add_development_dependency 'jekyll'
+  s.add_development_dependency 'safe_yaml'
+  s.add_development_dependency 'ruby-progressbar'
 end

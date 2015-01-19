@@ -2,3 +2,6 @@ builds
 
 # OS X
 .DS_Store
+
+# Test
+test/integration_tests/.temp
