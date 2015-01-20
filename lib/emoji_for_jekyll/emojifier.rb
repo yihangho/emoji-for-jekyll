@@ -13,7 +13,6 @@ module EmojiForJekyll
       return unless config[:enabled]
 
       proc = Proc.new do |token|
-        puts token
         stripped_token = token[1..-2]
         if emoji_allowed?(stripped_token) && emoji_exists?(stripped_token)
           image_tag(stripped_token)
@@ -25,7 +24,6 @@ module EmojiForJekyll
       @document.content.gsub!(REGEX, &proc)
       config[:front_matter].each do |key|
         next unless @document.data.has_key?(key)
-        puts key, @document.data[key]
         @document.data[key].gsub!(REGEX, &proc)
       end
     end
