@@ -77,49 +77,63 @@ Dir.foreach(test_cases_dir) do |file_name|
   [stdin, stdout, stderr].each(&:close)
 
   # Assertions
-  should_appear_failures = should_not_appear_failures = []
+  failures = {}
   posts.each_with_index do |post, i|
+    failures[post["title"]] = {}
+
     File.open("_site/post-#{i}.html") do |f|
       content = f.read
 
       if post.has_key?("expectations") && post["expectations"].has_key?("should_appear")
-        should_appear_failures = Array(post["expectations"]["should_appear"]).reject do |str|
+        expectations = Array(post["expectations"]["should_appear"])
+        failures[post["title"]]["should_appear"] = expectations.reject do |str|
           content[str]
         end
       end
 
       if post.has_key?("expectations") && post["expectations"].has_key?("should_not_appear")
-        should_not_appear_failures = Array(post["expectations"]["should_not_appear"]).select do |str|
+        expectations = Array(post["expectations"]["should_not_appear"])
+        failures[post["title"]]["should_not_appear"] = expectations.select do |str|
           content[str]
         end
       end
     end
   end
 
-  test_passed = should_appear_failures.none? && should_not_appear_failures.none?
+  failures = Hash[failures.select do |_, v|
+    v["should_appear"].any? || v["should_not_appear"].any?
+  end.map do |k, v|
+    v.delete("should_appear")     unless v["should_appear"].any?
+    v.delete("should_not_appear") unless v["should_not_appear"].any?
+    [k, v]
+  end]
 
-  # Report failure
-  if !test_passed
+  if failures.any?
     all_cases_passed = false
-
     progressbar.log "#{file_name} (#{random_id}) failed:"
 
-    if should_appear_failures.any?
-      progressbar.log "Should appear but does not:"
-      should_appear_failures.each { |str| progressbar.log " - #{str.inspect}" }
-    end
+    failures.each do |k, v|
+      progressbar.log "  #{k}:"
 
-    if should_not_appear_failures.any?
-      progressbar.log "Should not appear but appears:"
-      should_not_appear_failures.each { |str| progressbar.log " - #{str.inspect}" }
-    end
+      if v["should_appear"]
+        progressbar.log "   Should appear but does not:"
+        v["should_appear"].each do |str|
+          progressbar.log "    - #{str.inspect}"
+        end
+      end
 
-    progressbar.log ""
+      if v["should_not_appear"]
+        progressbar.log "   Should not appear but does:"
+        v["should_not_appear"].each do |str|
+          progressbar.log "    - #{str.inspect}"
+        end
+      end
+    end
   end
 
   # Clean up
   FileUtils.cd(base_dir)
-  FileUtils.rm_r(test_dir) if test_passed
+  FileUtils.rm_r(test_dir) unless failures.any?
 
   progressbar.increment
 end
