@@ -15,5 +15,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'jekyll'
   s.add_development_dependency 'safe_yaml'
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'ruby-progressbar'
 end
