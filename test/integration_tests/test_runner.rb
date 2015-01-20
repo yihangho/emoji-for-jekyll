@@ -43,6 +43,14 @@ Dir.foreach(test_cases_dir) do |file_name|
     end
   end
 
+  # Create (fake) custom images if needed
+  if test_case.has_key?("custom_images")
+    Array(test_case["custom_images"]).each do |path|
+      FileUtils.mkdir_p(File.dirname(path))
+      FileUtils.touch(path)
+    end
+  end
+
   posts = test_case.has_key?("posts") ? test_case["posts"] : []
   posts = [posts] unless posts.is_a?(Array)
 
