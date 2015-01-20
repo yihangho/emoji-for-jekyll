@@ -1,3 +1,11 @@
 permalink: /:title.html
+
+defaults:
+  -
+    scope:
+      type: posts
+    values:
+      layout: default
+
 gems:
   - emoji_for_jekyll
