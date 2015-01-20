@@ -1,0 +1,33 @@
+config:
+  emoji:
+    front_matter: title
+
+posts:
+  -
+    title: "Global Setting :smile:"
+    description: ":poop:"
+    content: ":grin:"
+    expectations:
+      should_appear:
+        - smile.png
+        - grin.png
+        - ":poop:"
+      should_not_appear:
+        - ":smile:"
+        - ":grin:"
+        - poop.png
+  -
+    title: "Overwritten Setting :smile:"
+    description: ":poop:"
+    content: ":grin:"
+    emoji:
+      front_matter: description
+    expectations:
+      should_appear:
+        - ":smile:"
+        - poop.png
+        - grin.png
+      should_not_appear:
+        - smile.png
+        - ":poop:"
+        - ":grin:"

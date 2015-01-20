@@ -1,0 +1,34 @@
+config:
+  emoji:
+    whitelist: grin
+    blacklist: smile
+
+posts:
+  -
+    title: Disabling whitelist
+    content: ":grin: :smile: :poop:"
+    emoji:
+      whitelist: nil
+    expectations:
+      should_appear:
+        - grin.png
+        - ":smile:"
+        - poop.png
+      should_not_appear:
+        - ":grin:"
+        - smile.png
+        - ":poop:"
+  -
+    title: Disabling blacklist
+    content: ":grin: :smile: :poop:"
+    emoji:
+      blacklist: nil
+    expectations:
+      should_appear:
+        - grin.png
+        - ":smile:"
+        - ":poop:"
+      should_not_appear:
+        - ":grin:"
+        - smile.png
+        - poop.png

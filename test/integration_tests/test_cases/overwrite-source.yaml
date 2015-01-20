@@ -1,0 +1,23 @@
+config:
+  emoji:
+    source: global
+
+custom_images:
+  - global/custom.jpg
+  - custom/custom.png
+
+posts:
+  -
+    title: Global
+    content: ":custom:"
+    expectations:
+      should_appear: global/custom.jpg
+      should_not_appear: ":custom:"
+  -
+    title: Overwritten
+    content: ":custom:"
+    emoji:
+      source: custom
+    expectations:
+      should_appear: custom/custom.png
+      should_not_appear: ":custom:"

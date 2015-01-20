@@ -1,0 +1,29 @@
+config:
+  emoji:
+    whitelist: grin
+
+posts:
+  -
+    title: Overwrite whitelist
+    content: ":grin: :smile:"
+    emoji:
+      whitelist: smile
+    expectations:
+      should_appear:
+        - ":grin:"
+        - smile.png
+      should_not_appear:
+        - grin.png
+        - ":smile:"
+  -
+    title: Add blacklist
+    content: ":grin: :smile:"
+    emoji:
+      blacklist: grin
+    expectations:
+      should_appear:
+        - ":grin:"
+        - smile.png
+      should_not_appear:
+        - ":smile:"
+        - grin.png

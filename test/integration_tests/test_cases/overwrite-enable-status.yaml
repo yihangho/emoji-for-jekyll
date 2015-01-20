@@ -1,0 +1,19 @@
+config:
+  emoji:
+    enabled: false
+
+posts:
+  -
+    title: Should remain disabled
+    content: ":grin:"
+    expectations:
+      should_appear: ":grin:"
+      should_not_appear: grin.png
+  -
+    title: Should be enabled
+    content: ":grin:"
+    emoji:
+      enabled: true
+    expectations:
+      should_appear: grin.png
+      should_not_appear: ":grin:"
