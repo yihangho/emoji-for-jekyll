@@ -70,7 +70,9 @@ Dir.foreach(test_cases_dir) do |file_name|
   # Assertions
   should_appear_failures = should_not_appear_failures = []
   if test_case.has_key?("posts")
-    Array[test_case["posts"]].each_with_index do |post, i|
+    posts = test_case["posts"]
+    posts = [posts] unless posts.is_a?(Array)
+    posts.each_with_index do |post, i|
       File.open("_site/post-#{i}.html") do |f|
         content = f.read
 
