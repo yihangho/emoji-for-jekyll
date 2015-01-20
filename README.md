@@ -12,50 +12,51 @@ Seamlessly enable emoji for Jekyll.
   ```
 3. See beautiful emoji!
 
-_or_
+## Advanced Options
+Emoji for Jekyll works without any extra configuration. However, we do offer customizability for our users. All options mentioned below sit under the `emoji` key in `_config.yml`. In addition to global settings in `_config.yml`, each of these options can also be used in front-matter to overwrite the global settings.
 
-1. Copy `emoji_for_jekll.rb` and `emoji.json` into the `_plugins` directory
+### `enabled`
+Set this to `false` to skip disable Emoji for Jekyll for the entire site or a particular post.
 
-
-## Options
-### Whitelist and blacklist
-You can also whitelist or blacklist certain emojis. On the posts or pages that you want to whitelist or blacklist certain emojis, add `emoji-whitelist` or `emoji-blacklist` follow by a list of emojis __without__ the colons to the front matter. For example:
-
-```yaml
-emoji-whitelist:
-  - bowtie
-  - blush
- ```
-
- or
+### `front_matter`
+A list of front-matter keys that should be emojified as well. For example, if we set the following in `_config.yml`:
 
 ```yaml
-emoji-blacklist:
-  - smile
+emoji:
+  front_matter:
+    - title
+    - description
+    - my_item
 ```
 
-When both `emoji-whitelist` and `emoji-blacklist` are declared, the effect will be the same as when only the whitelist is declared.
+The values of `title`, `description`, and `my_item` in the front_matter of each post will be emojified.
 
-### Disabling
-You may choose to disable this plugin for certain posts or pages by adding `emoji: false` to the front matter of these posts and pages.
-
-If, for some reason, you want to disable this plugin for the entire site, you can either remove `emoji-for-jekyll.rb` from `_plugins`, or just add `emoji: false` to `_config.yml`.
-
-### Emojify front-matter items
-If you need to emojify certain items in your front-matter, like `title` or `caption` that is needed for some templates, you can do so by setting `emoji-additional-keys` in `_config.yml`. This setting is optional and expects an array:
+### `whitelist` and `blacklist`
+`whitelist` and `blacklist` can be used to enable or disable only certain emoji. Each of `whitelist` and `blacklist` is an array of emoji token, without the colon. For example:
 
 ```yaml
-emoji-additional-keys: ["title", "caption"]
+emoji:
+  whitelist:
+    - smile
+    - poop
 ```
 
-### Custom images
-By default the images are sourced from GitHub CDN but should you want to use other images you can by choosing a directory with the setting `emoji-images-path` in `_config.yml`. For example: `emoji-images-path: 'img/emoji'`
+### `source`
+By default, the images of emoji used are the same as those used on GitHub. It is, however, possible to use your own images. Set `source` to the directory containing all these images. All images in this directory will become emoji, thereby allowing custom emoji.
 
-Images copied into this directory will be added the whitelist. E.g.: `custom.png` would whitelist `:custom:`. Any images with the same name as the emoji list will overwrite the default GitHub emoji image.
+```yaml
+emoji:
+  source: asset/emoji
+```
 
-## Updating Emoji for Jekyll
-Updating Emoji for Jekyll is very easy:
+Suppose the `asset/emoji` directory contains the following items:
+
+- smile.jpg
+- poop.png
+- my_own_emoji_yo.svg
+
+The following will be converted to use these three images:
 
 ```
-gem update emoji_for_jekyll
+:smile: :poop: :my_own_emoji_yo:
 ```
