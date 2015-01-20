@@ -48,17 +48,15 @@ module EmojiForJekyll
       end
 
       if @document.data["emoji"].has_key?("whitelist") && @document.data["emoji"].has_key?("blacklist")
-        @config[:whitelist] = Array(@document.data["emoji"]["whitelist"])
-        @config[:blacklist] = Array(@document.data["emoji"]["blacklist"])
+        @config[:whitelist] = @document.data["emoji"]["whitelist"].nil? ? nil : Array(@document.data["emoji"]["whitelist"])
+        @config[:blacklist] = @document.data["emoji"]["blacklist"].nil? ? nil : Array(@document.data["emoji"]["blacklist"])
       elsif @document.data["emoji"].has_key?("whitelist")
-        @config[:whitelist] = Array(@document.data["emoji"]["whitelist"])
-        @config[:blacklist] = nil
+        @config[:whitelist] = @document.data["emoji"]["whitelist"].nil? ? nil : Array(@document.data["emoji"]["whitelist"])
+        @config[:blacklist] = nil unless @document.data["emoji"]["whitelist"].nil?
       elsif @document.data["emoji"].has_key?("blacklist")
-        @config[:blacklist] = Array(@document.data["emoji"]["blacklist"])
-        @config[:whitelist] = nil
+        @config[:blacklist] = @document.data["emoji"]["blacklist"].nil? ? nil : Array(@document.data["emoji"]["blacklist"])
+        @config[:whitelist] = nil unless @document.data["emoji"]["blacklist"].nil?
       end
-
-      p config
 
       @config
     end
