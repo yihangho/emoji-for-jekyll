@@ -1,0 +1,20 @@
+config:
+  emoji:
+    whitelist:
+      - grin
+      - smile
+    blacklist:
+      - smile
+
+posts:
+  title: "Hello World"
+  content: ":grin: :smile: :blush:"
+  expectations:
+    should_appear:
+      - grin.png
+      - smile.png
+      - ":blush:"
+    should_not_appear:
+      - ":grin:"
+      - ":smile:"
+      - "blush.png"

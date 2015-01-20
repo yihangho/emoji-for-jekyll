@@ -1,0 +1,10 @@
+config:
+  emoji:
+    enabled: false
+
+posts:
+  title: Hello World
+  content: ":grin:"
+  expectations:
+    should_appear: ":grin:"
+    should_not_appear: grin.png

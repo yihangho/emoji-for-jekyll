@@ -1,0 +1,17 @@
+config:
+  emoji:
+    source: emoji
+
+custom_images: emoji/custom.jpg
+
+posts:
+  title: "Hello World"
+  content: ":custom: :invalid:"
+  expectations:
+    should_appear:
+      - emoji/custom.jpg
+      - ":invalid"
+    should_not_appear:
+      - ":custom:"
+      - invalid.jpg
+      - invalid.png

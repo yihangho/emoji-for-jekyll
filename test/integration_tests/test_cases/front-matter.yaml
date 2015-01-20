@@ -1,0 +1,17 @@
+config:
+  emoji:
+    front_matter: title
+
+posts:
+  title: "Hello :smile:"
+  description: ":grin:"
+  content: ":poop:"
+  expectations:
+    should_appear:
+      - smile.png
+      - ":grin:"
+      - poop.png
+    should_not_appear:
+      - ":smile:"
+      - grin.png
+      - ":poop:"
