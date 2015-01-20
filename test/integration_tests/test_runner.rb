@@ -43,14 +43,15 @@ Dir.foreach(test_cases_dir) do |file_name|
     end
   end
 
+  posts = test_case.has_key?("posts") ? test_case["posts"] : []
+  posts = [posts] unless posts.is_a?(Array)
+
   # Create posts if needed
-  if test_case.has_key?("posts")
-    Array[test_case["posts"]].each_with_index do |post, i|
-      File.open("_posts/2015-01-19-post-#{i}.markdown", "w") do |f|
-        f << post.select { |k, _| !%w(content expectations).include? k }.to_yaml
-        f << "---\n"
-        f << post["content"] if post.has_key?("content")
-      end
+  posts.each_with_index do |post, i|
+    File.open("_posts/2015-01-19-post-#{i}.markdown", "w") do |f|
+      f << post.select { |k, _| !%w(content expectations).include? k }.to_yaml
+      f << "---\n"
+      f << post["content"] if post.has_key?("content")
     end
   end
 
@@ -69,23 +70,19 @@ Dir.foreach(test_cases_dir) do |file_name|
 
   # Assertions
   should_appear_failures = should_not_appear_failures = []
-  if test_case.has_key?("posts")
-    posts = test_case["posts"]
-    posts = [posts] unless posts.is_a?(Array)
-    posts.each_with_index do |post, i|
-      File.open("_site/post-#{i}.html") do |f|
-        content = f.read
+  posts.each_with_index do |post, i|
+    File.open("_site/post-#{i}.html") do |f|
+      content = f.read
 
-        if post.has_key?("expectations") && post["expectations"].has_key?("should_appear")
-          should_appear_failures = Array(post["expectations"]["should_appear"]).reject do |str|
-            content[str]
-          end
+      if post.has_key?("expectations") && post["expectations"].has_key?("should_appear")
+        should_appear_failures = Array(post["expectations"]["should_appear"]).reject do |str|
+          content[str]
         end
+      end
 
-        if post.has_key?("expectations") && post["expectations"].has_key?("should_not_appear")
-          should_not_appear_failures = Array(post["expectations"]["should_not_appear"]).select do |str|
-            content[str]
-          end
+      if post.has_key?("expectations") && post["expectations"].has_key?("should_not_appear")
+        should_not_appear_failures = Array(post["expectations"]["should_not_appear"]).select do |str|
+          content[str]
         end
       end
     end
