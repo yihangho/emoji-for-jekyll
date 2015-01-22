@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    emoji_for_jekyll (0.2.1)
+    emoji_for_jekyll (1.0.0.pre.1)
 
 GEM
   remote: https://rubygems.org/
