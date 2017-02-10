@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'emoji_for_jekyll'
-  s.version     = '0.2.2'
+  s.version     = '0.2.3'
   s.date        = '2015-12-22'
   s.summary     = 'Seamlessly enable emoji in Jekyll.'
   s.description = 'A plugin for Jekyll that seamlessly enable emoji.'
