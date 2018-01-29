@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = 'me@yihangho.com'
   s.homepage    = 'https://github.com/yihangho/emoji-for-jekyll'
   s.license     = 'MIT'
-  s.post_install_message = 'Remember to add add `emoji_for_jekyll` to the list of Gems in _config.yml.'
+  s.post_install_message = 'Remember to add `emoji_for_jekyll` to the list of Gems in _config.yml.'
   s.files       = ['lib/emoji_for_jekyll.rb', 'lib/emoji.json']
 
   s.extra_rdoc_files = ['README.md', 'LICENSE']
