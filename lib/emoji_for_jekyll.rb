@@ -33,12 +33,13 @@ module EmojiForJekyll
       @images_path = {}
       if site.config["emoji-images-path"]
 
+        baseurl = site.config["baseurl"] || ""
         images_path = site.config["emoji-images-path"]
         images_dir  = File.join(site.source, images_path)
         Dir.foreach(images_dir) do |image_filename|
           if /^(?<tag>.*)\.(?:svg|png|jpg|jpeg|gif)/ =~ image_filename
             @master_whitelist << tag
-            @images_path[tag] = File.join("/", images_path, image_filename)
+            @images_path[tag] = File.join("/", baseurl, images_path, image_filename)
           end
         end
 
