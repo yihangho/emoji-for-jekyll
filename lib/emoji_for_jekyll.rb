@@ -92,7 +92,7 @@ module EmojiForJekyll
       if @images_path[name]
         img_src = @images_path[name]
       else # otherwise use fallback CDN
-        img_src = "https://github.global.ssl.fastly.net/images/icons/emoji/#{name}.png"
+        img_src = "https://github.githubassets.com/images/icons/emoji/#{name}.png"
       end
 
       "<img class='emoji' title='#{name}' alt='#{name}' src='#{img_src}' height='20' width='20' align='absmiddle' >"
