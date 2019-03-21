@@ -20,7 +20,10 @@ module EmojiForJekyll
 
       site.pages.each { |p| substitute(p, additional_keys) }
 
-      (site.posts.respond_to?(:docs) ? site.posts.docs : site.posts ).each { |p| substitute(p, additional_keys) }
+      (site.posts.respond_to?(:docs) ? site.posts.docs : site.posts ).each { |p|
+        substitute(p, additional_keys)
+        substitute(p.data['excerpt'], additional_keys) if p.data.has_key?("excerpt")
+      }
     end
 
     private
